@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>دليل الهواتف الداخلية</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0f1e;
+    --card: #111827;
+    --card2: #1a2235;
+    --accent: #3b82f6;
+    --accent2: #06b6d4;
+    --gold: #f59e0b;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --border: #1e3a5f;
+    --success: #10b981;
+    --mic-active: #ef4444;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background grid */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 30px 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .header-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 16px;
+    border-radius: 100px;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 800;
+    background: linear-gradient(135deg, #e2e8f0, var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 1rem;
+    font-weight: 300;
+  }
+
+  /* Search Box */
+  .search-wrapper {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 20px 24px;
+    margin-bottom: 30px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    position: relative;
+  }
+
+  .search-wrapper::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px; right: -1px; bottom: -1px;
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2), transparent);
+    z-index: -1;
+    opacity: 0.3;
+  }
+
+  .search-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .search-input {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 20px;
+    color: var(--text);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 1.05rem;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .search-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+  }
+
+  .search-input::placeholder { color: var(--muted); }
+
+  .mic-btn {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s, box-shadow 0.3s;
+    flex-shrink: 0;
+    box-shadow: 0 4px 20px rgba(59,130,246,0.4);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mic-btn:hover { transform: scale(1.08); }
+
+  .mic-btn.listening {
+    background: linear-gradient(135deg, var(--mic-active), #f97316);
+    box-shadow: 0 0 0 0 rgba(239,68,68,0.4);
+    animation: pulse-mic 1.2s infinite;
+  }
+
+  @keyframes pulse-mic {
+    0% { box-shadow: 0 0 0 0 rgba(239,68,68,0.5); }
+    70% { box-shadow: 0 0 0 16px rgba(239,68,68,0); }
+    100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
+  }
+
+  .clear-btn {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--card2);
+    color: var(--muted);
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .clear-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+  .voice-status {
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 28px;
+  }
+
+  .voice-wave {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .voice-wave.active { opacity: 1; }
+
+  .wave-bar {
+    width: 3px;
+    background: var(--mic-active);
+    border-radius: 2px;
+    animation: wave 0.8s ease-in-out infinite;
+  }
+
+  .wave-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+  .wave-bar:nth-child(2) { height: 16px; animation-delay: 0.1s; }
+  .wave-bar:nth-child(3) { height: 22px; animation-delay: 0.2s; }
+  .wave-bar:nth-child(4) { height: 16px; animation-delay: 0.3s; }
+  .wave-bar:nth-child(5) { height: 8px; animation-delay: 0.4s; }
+
+  @keyframes wave {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.4); }
+  }
+
+  .voice-text {
+    color: var(--muted);
+    font-size: 0.88rem;
+  }
+
+  /* Stats bar */
+  .stats-bar {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .stat-chip {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .stat-chip span { color: var(--accent2); font-weight: 700; }
+
+  /* Results count */
+  .results-info {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+    padding-right: 4px;
+  }
+
+  .results-info strong { color: var(--accent2); }
+
+  /* Department sections */
+  .department {
+    margin-bottom: 24px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: opacity 0.3s;
+  }
+
+  .dept-header {
+    background: linear-gradient(135deg, var(--card2), #1e293b);
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dept-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .dept-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text);
+  }
+
+  .dept-count {
+    margin-right: auto;
+    background: rgba(59,130,246,0.15);
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 100px;
+    border: 1px solid rgba(59,130,246,0.25);
+  }
+
+  /* Phone entries */
+  .entries-grid {
+    background: var(--card);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1px;
+    background-color: var(--border);
+  }
+
+  .entry {
+    background: var(--card);
+    padding: 14px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+    cursor: default;
+  }
+
+  .entry:hover { background: var(--card2); }
+
+  .entry.highlight {
+    background: rgba(59,130,246,0.08);
+    border-right: 3px solid var(--accent);
+  }
+
+  .entry-name {
+    font-size: 0.92rem;
+    color: var(--text);
+    font-weight: 500;
+    flex: 1;
+  }
+
+  .entry-name mark {
+    background: rgba(245,158,11,0.25);
+    color: var(--gold);
+    border-radius: 3px;
+    padding: 0 2px;
+  }
+
+  .entry-phone {
+    background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(6,182,212,0.15));
+    border: 1px solid rgba(59,130,246,0.3);
+    color: var(--accent2);
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 5px 14px;
+    border-radius: 8px;
+    letter-spacing: 1px;
+    font-family: 'Tajawal', monospace;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+    margin-right: 12px;
+    direction: ltr;
+  }
+
+  .entry-phone:hover {
+    background: linear-gradient(135deg, rgba(59,130,246,0.3), rgba(6,182,212,0.3));
+    transform: scale(1.05);
+  }
+
+  /* No results */
+  .no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+    display: none;
+  }
+
+  .no-results .icon { font-size: 3rem; margin-bottom: 16px; }
+  .no-results p { font-size: 1.1rem; }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--success);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    z-index: 1000;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 8px 30px rgba(16,185,129,0.4);
+  }
+
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="header-badge">📞 داخلي</div>
+    <h1>دليل الهواتف الداخلية</h1>
+    <p class="subtitle">ابحث عن أي موظف أو قسم بسهولة</p>
+  </header>
+
+  <div class="search-wrapper">
+    <div class="search-row">
+      <input type="text" class="search-input" id="searchInput" placeholder="ابحث باسم الموظف أو القسم..." autocomplete="off">
+      <button class="clear-btn" id="clearBtn" title="مسح البحث">✕</button>
+      <button class="mic-btn" id="micBtn" title="بحث صوتي">🎤</button>
+    </div>
+    <div class="voice-status">
+      <div class="voice-wave" id="voiceWave">
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+        <div class="wave-bar"></div>
+      </div>
+      <span class="voice-text" id="voiceText">اضغط على الميكروفون للبحث الصوتي</span>
+    </div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-chip">📋 الأقسام: <span id="deptCount">0</span></div>
+    <div class="stat-chip">👤 الموظفين: <span id="empCount">0</span></div>
+  </div>
+
+  <div class="results-info" id="resultsInfo"></div>
+
+  <div id="dirContainer"></div>
+
+  <div class="no-results" id="noResults">
+    <div class="icon">🔍</div>
+    <p>لا توجد نتائج لـ "<strong id="noResultsQuery"></strong>"</p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const data = [
+  {
+    dept: "المدير العام",
+    icon: "🏛️",
+    entries: [
+      { name: "المدير العام / داخلي", phone: "٣٠١" },
+      { name: "مدير المكتب", phone: "٣٠٢" },
+      { name: "السكرتارية", phone: "٣٦٢,٣١٦" },
+      { name: "مجلس الادارة", phone: "٣١٥" },
+      { name: "حماية المدير العام", phone: "٣٥٠" },
+      { name: "استعلامات المكتب", phone: "٣٦٣,٤٤٤" },
+      { name: "شعبة المتابعة / حيدر", phone: "٣٥١" },
+      { name: "العلاقات / رسل", phone: "٣٧٠,٣٧١" },
+      { name: "شؤون المواطنين", phone: "٢٦٣,٣٢٩" },
+      { name: "شعبة الجودة", phone: "٣٩٢" },
+      { name: "ديوان الرقابة المالية", phone: "٣٨٥,١٢٨" },
+      { name: "مدير المصرف", phone: "٢٠١,٢٠٢" },
+    ]
+  },
+  {
+    dept: "المعاونين",
+    icon: "👥",
+    entries: [
+      { name: "المعاون الفني", phone: "٣٠٣" },
+      { name: "السكرتارية / مصطفى", phone: "٣١٨" },
+      { name: "المعاون المالي", phone: "٣٠٤" },
+      { name: "السكرتارية / زهراء", phone: "١٢٢,٣١٧" },
+    ]
+  },
+  {
+    dept: "قسم المالية",
+    icon: "💰",
+    entries: [
+      { name: "مدير القسم", phone: "٣٨٦" },
+      { name: "الحسابات / مصطفى", phone: "٣٣٣" },
+      { name: "ادارية القسم", phone: "٤٠٢,١٢١" },
+      { name: "الرواتب / مروج", phone: "١١٥" },
+      { name: "شعبة الصرف / اسيل", phone: "٣٤٨" },
+      { name: "حسابات القروض / ليث", phone: "١١٦" },
+      { name: "وحدة الصكوك", phone: "١٢٧" },
+      { name: "المخزن / احمد شامل", phone: "٢٠٥" },
+      { name: "ارشيف المالية", phone: "١٣٤" },
+      { name: "كرفان التسديد (كاشير)", phone: "١٨٢" },
+      { name: "شعبة الموجودات", phone: "٣٩٠" },
+      { name: "شركة (swich)", phone: "١٧٩" },
+    ]
+  },
+  {
+    dept: "قسم الائتمان",
+    icon: "🏦",
+    entries: [
+      { name: "مدير القروض / احمد", phone: "٣١١" },
+      { name: "التأمين", phone: "١٤٤,٤٠١" },
+      { name: "التأمين / قاعة / مهند", phone: "٣٥٣" },
+      { name: "التسليف / نهاد", phone: "٣٥٩" },
+      { name: "التسليف / رائد + فرح", phone: "١٤٢" },
+      { name: "ارشيف قروض / حامد", phone: "١٨٠" },
+      { name: "ملحق الارشيف", phone: "١٧٥" },
+      { name: "الكاونتر / احمد جواد", phone: "٣٧٢" },
+      { name: "صحة الصدور / حيدر", phone: "٣٨٠" },
+      { name: "صحة الصدور / سنان", phone: "٣٧٥,٢٣٣" },
+      { name: "صحة الصدور / كاونتر", phone: "٣٨٣" },
+      { name: "شعبة الابطال / فلاح", phone: "٣٦٠" },
+      { name: "الابطال / قاعة / غسان", phone: "٣٨٤" },
+    ]
+  },
+  {
+    dept: "قسم الفنية",
+    icon: "🔧",
+    entries: [
+      { name: "مدير الفنية / رافد", phone: "٣٠٨" },
+      { name: "السلامة المهنية / لؤي", phone: "٣٣٠" },
+      { name: "ادارية القسم", phone: "٣٣١" },
+      { name: "صيانة الاليات / ميثم", phone: "٣٢١" },
+    ]
+  },
+  {
+    dept: "قسم الرقابة",
+    icon: "🔍",
+    entries: [
+      { name: "مدير الرقابة / باسم", phone: "٣٠٦" },
+      { name: "التدقيق رائد + لؤي", phone: "١٤٧" },
+      { name: "تشغيلية / بتول", phone: "٣٩٧" },
+      { name: "تشغيلية / صكوك / اسرى", phone: "١٢٩" },
+      { name: "ادارية القسم", phone: "٣٩٤" },
+      { name: "تدقيق / مريم خفيف", phone: "٣٩٥" },
+      { name: "تدقيق معاملات / عائشة", phone: "١٣٠" },
+      { name: "السيطرة المخزنية / طه", phone: "١٤٩" },
+    ]
+  },
+  {
+    dept: "قسم الادارية",
+    icon: "📂",
+    entries: [
+      { name: "مدير الادارية", phone: "٣٣٨" },
+      { name: "م / المدير / بسام", phone: "٤٠٦" },
+      { name: "الصادر والوارد / ياسر", phone: "١٩١" },
+      { name: "ارشيف الادارية", phone: "١٩٠" },
+      { name: "الترفيع / محمد ياسين", phone: "١٩٢" },
+      { name: "شعبة التدريب / وداد", phone: "١٩٣" },
+      { name: "الموارد البشرية", phone: "١٨٩" },
+      { name: "الاجازات / ليلى", phone: "٢٣٠" },
+      { name: "الخدمات / علي", phone: "٢٣١" },
+      { name: "الاسواق", phone: "١٦٩" },
+    ]
+  },
+  {
+    dept: "قسم القانونية",
+    icon: "⚖️",
+    entries: [
+      { name: "مدير القانونية / بشار", phone: "٣٠٧" },
+      { name: "م / المدير", phone: "١٧٢" },
+      { name: "كرفان القانونية", phone: "١٧٠" },
+      { name: "ادارية القسم", phone: "٣٢٧" },
+      { name: "الدعاوى / ورود", phone: "٣٢٥" },
+      { name: "وحدة التنفيذ", phone: "٣٢٨" },
+      { name: "العقود / غيث", phone: "٣٥٤" },
+      { name: "الاملاك / دانية", phone: "٣٧٨" },
+      { name: "الاملاك / رغد", phone: "١٨١" },
+      { name: "استعلامات القانونية", phone: "١٧٩" },
+    ]
+  },
+  {
+    dept: "قسم التخطيط",
+    icon: "📊",
+    entries: [
+      { name: "مدير التخطيط", phone: "٣٠٩" },
+      { name: "التخطيط والدراسات", phone: "٣٣٥" },
+      { name: "ادارية القسم", phone: "٣٢٤" },
+      { name: "الحوكمة", phone: "٣٤٢" },
+      { name: "الاتصالات", phone: "٣٤١" },
+      { name: "القبول المركزي", phone: "٣٤٣" },
+      { name: "الارشفة الالكترونية", phone: "٣٢٣" },
+    ]
+  },
+  {
+    dept: "قسم ادارة العمليات",
+    icon: "⚙️",
+    entries: [
+      { name: "مدير الجباية", phone: "٤٠٤" },
+      { name: "ادخال بيانات / ابراهيم", phone: "٣٦٦" },
+      { name: "متابعة الاقساط / السام", phone: "٣٣٦" },
+      { name: "الاقساط / ام مريم", phone: "٣٥٧,١٦٦" },
+      { name: "الكاونتر", phone: "٣٣٩" },
+      { name: "ادارة العمليات / حاوية", phone: "٣٢٦" },
+      { name: "قاعة الجباية", phone: "٣٦٧" },
+    ]
+  },
+  {
+    dept: "قسم الفروع",
+    icon: "🏢",
+    entries: [
+      { name: "مدير الفروع", phone: "٤٠٠" },
+      { name: "م / المدير / خالد", phone: "٣٢٢" },
+      { name: "ادارية القسم", phone: "١٣٦,٣٦٤" },
+      { name: "قسم الفروع", phone: "٣٦٥" },
+    ]
+  },
+  {
+    dept: "شعبة التصاريح",
+    icon: "📄",
+    entries: [
+      { name: "م. شعبة زياد طارق", phone: "٢٠٠" },
+      { name: "التصاريح", phone: "٣٩١,٢٣٢" },
+      { name: "الباب الخارجي", phone: "١٧٤" },
+      { name: "استعلامات خارجية", phone: "١٧٣" },
+      { name: "الاستعلامات الداخلية", phone: "١٦٥,٣١٤" },
+      { name: "الدفاع المدني", phone: "٢٢٩" },
+    ]
+  },
+];
+
+// Count totals
+let totalEmps = 0;
+data.forEach(d => totalEmps += d.entries.length);
+document.getElementById('deptCount').textContent = data.length;
+document.getElementById('empCount').textContent = totalEmps;
+
+function highlight(text, query) {
+  if (!query) return text;
+  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return text.replace(new RegExp(`(${escaped})`, 'gi'), '<mark>$1</mark>');
+}
+
+function renderAll(query = '') {
+  const container = document.getElementById('dirContainer');
+  const noResults = document.getElementById('noResults');
+  const resultsInfo = document.getElementById('resultsInfo');
+  const q = query.trim().toLowerCase();
+
+  container.innerHTML = '';
+  let totalMatches = 0;
+  let deptShown = 0;
+
+  data.forEach(dept => {
+    const filtered = q
+      ? dept.entries.filter(e =>
+          e.name.toLowerCase().includes(q) ||
+          e.phone.includes(q) ||
+          dept.dept.toLowerCase().includes(q)
+        )
+      : dept.entries;
+
+    if (filtered.length === 0) return;
+
+    totalMatches += filtered.length;
+    deptShown++;
+
+    const section = document.createElement('div');
+    section.className = 'department';
+
+    const header = document.createElement('div');
+    header.className = 'dept-header';
+    header.innerHTML = `
+      <div class="dept-icon">${dept.icon}</div>
+      <div class="dept-title">${highlight(dept.dept, query)}</div>
+      <div class="dept-count">${filtered.length} رقم</div>
+    `;
+
+    const grid = document.createElement('div');
+    grid.className = 'entries-grid';
+
+    filtered.forEach(entry => {
+      const div = document.createElement('div');
+      div.className = 'entry' + (q ? ' highlight' : '');
+      div.innerHTML = `
+        <div class="entry-name">${highlight(entry.name, query)}</div>
+        <div class="entry-phone" onclick="copyPhone('${entry.phone}', this)" title="انقر للنسخ">${entry.phone}</div>
+      `;
+      grid.appendChild(div);
+    });
+
+    section.appendChild(header);
+    section.appendChild(grid);
+    container.appendChild(section);
+  });
+
+  if (q && totalMatches === 0) {
+    noResults.style.display = 'block';
+    document.getElementById('noResultsQuery').textContent = query;
+    resultsInfo.textContent = '';
+  } else {
+    noResults.style.display = 'none';
+    if (q) {
+      resultsInfo.innerHTML = `تم العثور على <strong>${totalMatches}</strong> نتيجة في <strong>${deptShown}</strong> قسم`;
+    } else {
+      resultsInfo.textContent = '';
+    }
+  }
+}
+
+function copyPhone(phone, el) {
+  navigator.clipboard.writeText(phone).catch(() => {});
+  showToast(`📋 تم نسخ الرقم: ${phone}`);
+  el.style.background = 'linear-gradient(135deg, rgba(16,185,129,0.3), rgba(5,150,105,0.3))';
+  el.style.borderColor = 'rgba(16,185,129,0.5)';
+  el.style.color = '#10b981';
+  setTimeout(() => {
+    el.style.background = '';
+    el.style.borderColor = '';
+    el.style.color = '';
+  }, 1000);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// Search input
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', () => renderAll(searchInput.value));
+
+// Clear
+document.getElementById('clearBtn').addEventListener('click', () => {
+  searchInput.value = '';
+  renderAll();
+  searchInput.focus();
+});
+
+// Voice search
+const micBtn = document.getElementById('micBtn');
+const voiceWave = document.getElementById('voiceWave');
+const voiceText = document.getElementById('voiceText');
+let recognition = null;
+
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (SpeechRecognition) {
+  recognition = new SpeechRecognition();
+  recognition.lang = 'ar-IQ';
+  recognition.interimResults = true;
+  recognition.maxAlternatives = 1;
+
+  recognition.onstart = () => {
+    micBtn.classList.add('listening');
+    voiceWave.classList.add('active');
+    voiceText.textContent = '🎙️ جارٍ الاستماع...';
+  };
+
+  recognition.onresult = (e) => {
+    const transcript = Array.from(e.results)
+      .map(r => r[0].transcript)
+      .join('');
+    searchInput.value = transcript;
+    renderAll(transcript);
+    voiceText.textContent = `🔊 "${transcript}"`;
+  };
+
+  recognition.onerror = (e) => {
+    voiceText.textContent = '⚠️ تعذّر التعرف على الصوت، حاول مجدداً';
+    stopListening();
+  };
+
+  recognition.onend = () => stopListening();
+
+  micBtn.addEventListener('click', () => {
+    if (micBtn.classList.contains('listening')) {
+      recognition.stop();
+    } else {
+      recognition.start();
+    }
+  });
+} else {
+  micBtn.title = 'المتصفح لا يدعم البحث الصوتي';
+  micBtn.style.opacity = '0.5';
+  voiceText.textContent = '⚠️ المتصفح لا يدعم البحث الصوتي';
+}
+
+function stopListening() {
+  micBtn.classList.remove('listening');
+  voiceWave.classList.remove('active');
+  setTimeout(() => {
+    if (!micBtn.classList.contains('listening')) {
+      voiceText.textContent = 'اضغط على الميكروفون للبحث الصوتي';
+    }
+  }, 2000);
+}
+
+// Initial render
+renderAll();
+</script>
+</body>
+</html>
